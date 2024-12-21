@@ -1,0 +1,101 @@
+{% load static %}
+{% block content %}
+<link rel="icon" type="image/x-icon" href="{%static "img/icon.jpg"%}">
+
+<style>
+  body {
+    background: linear-gradient(to bottom, #f5f7fa, #ffffff);
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .signup-container {
+    max-width: 500px;
+    margin: 15vh auto;
+    background: #ffffff;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 30px;
+  }
+
+  h1 {
+    font-size: 24px;
+    color: #1976d2;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 16px;
+    color: #424242;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  form {
+    margin-top: 20px;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  input[type="submit"] {
+    background-color: #1976d2;
+    color: #ffffff;
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+    width: 100%;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #1565c0;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .helper-text {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #616161;
+  }
+
+  .helper-text a {
+    color: #1976d2;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .helper-text a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<div class="signup-container">
+  <h1>Create an Account</h1>
+  <p>Please, sign up using the form below:</p>
+  <form method="post">
+    {{ user_form.as_p }}
+    {% csrf_token %}
+    <input type="submit" value="Create my account">
+  </form>
+  <div class="helper-text">
+    <p>Already have an account? <a href="{% url 'account:login' %}">Log in</a></p>
+  </div>
+</div>
+
+
+{% endblock %}

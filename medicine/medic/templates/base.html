@@ -1,0 +1,408 @@
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <!-- basic -->
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <!-- mobile metas -->
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+   <!-- site metas -->
+   <title>{%block title%}HomeCare{%endblock%}</title>
+   <meta name="keywords" content="">
+   <meta name="description" content="">
+   <meta name="author" content="">
+   <!-- bootstrap css -->
+   <link rel="stylesheet" href="{%static 'css/bootstrap.min.css' %}">
+   <!-- style css -->
+   <link rel="stylesheet" href="{%static 'css/style.css'%}">
+   <!-- Responsive-->
+   <link rel="stylesheet" href="{%static 'css/responsive.css'%}">
+   <!-- fevicon -->
+   <link rel="icon" href="images/fevicon.png" type="{%static 'image/gif' %}" />
+   <!-- Scrollbar Custom CSS -->
+   <link rel="stylesheet" href="{%static 'css/jquery.mCustomScrollbar.min.css'%}">
+   <!-- Tweaks for older IEs-->
+   <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+   <!-- owl stylesheets -->
+   <link rel="stylesheet" href="{%static 'css/owl.carousel.min.css'%}">
+   <link rel="stylesheet" href="{%static 'css/owl.theme.default.min.css'%}">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+ 
+</head>
+<style>
+
+.map-container {
+    width: 80%;
+    max-width: 800px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.map-links {
+    display: block;
+    text-align: center;
+    background-color: #fffbf5;
+    padding: 10px;
+    font-size: 18px;
+    color: #0073e6;
+    text-decoration: none;
+    border-bottom: 2px solid #ccc;
+}
+
+.map-links:hover {
+    text-decoration: underline;
+}
+
+iframe {
+    width: 100%;
+    height: 400px;
+    border: none;
+}
+
+</style>
+<body>
+   <!-- header section start -->
+   {% block header %}
+   <div class="header_section">
+   
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+         <div class="logo"><a href="{%url "medic:base"%}"><img src="{% static 'images/logo.png' %}" alt="Logo"></a></div>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+               <li class="nav-item active">
+                  <a class="nav-link" href="{%url "medic:base"%}">Главная</a>
+               </li>
+               {% if request.user.is_authenticated %}
+               <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     <i class="fas fa-user"></i> <!-- Иконка пользователя -->
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="userDropdown">
+                     <a class="dropdown-item" href="{% url 'account:profile' %}">Профиль</a>
+                     <a class="dropdown-item" href="{% url 'account:logout' %}">Выйти</a>
+                  </div>
+               </li>
+               {% else %}
+               <li class="nav-item">
+                  <a class="nav-link" href="{% url 'account:login' %}">Войти</a>
+               </li>
+               {% endif %}
+               
+               <li class="nav-item">
+                  <a class="nav-link" href="#">Медицина</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" href="{%url "medic:news"%}">Новости</a>
+               </li>
+         
+               <li class="nav-item"><a class="nav-link" href="{%url "patients:patient_list"%}">Пациенты</a></li>
+
+               <li class="nav-item">
+                  <a class="nav-link" href="#">Контакты</a>
+               </li>
+             
+            </ul>
+         </div>
+      </nav>
+      {%endblock%}
+      {%block content%}
+      <!-- header section end -->
+      <!-- banner section start -->
+      <div id="main_slider" class="carousel slide" data-ride="carousel">
+         <div class="carousel-inner">
+            <div class="carousel-item active">
+               <div class="banner_section">
+                  <div class="container">
+                     <div class="row">
+                        <div class="col-md-6">
+                           <h1 class="banner_taital">Health Care <br><span style="color: #151515;">Care</span></h1>
+                           <p class="banner_text">Платформа</p>
+                           <div class="btn_main">
+                              <div class="more_bt"><a href="{%url "account:login"%}">Войти в Кабинет</a></div>
+                              <div class="contact_bt"><a href="base.html">Запросить демонстрацию</a></div>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="image_1"><img src="{%static 'images/s.svg'%}"></div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="carousel-item">
+               <div class="banner_section">
+                  <div class="container">
+                     <div class="row">
+                        <div class="col-md-6">
+                           <h1 class="banner_taital">Health Care <br><span style="color: #151515;">Care</span></h1>
+                           <p class="banner_text">Платформа </p>
+                           <div class="btn_main">
+                              <div class="more_bt"><a href="{%url "account:login"%}">Войти в Кабинет</a></div>
+                              <div class="contact_bt"><a href="base.html">Запросить демонстрацию</a></div>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="image_1"><img src="{%static 'images/img-1.png' %}"></div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            
+         </div>
+         <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
+            <i class="fa fa-long-arrow-left" style="font-size:24px; padding-top: 4px;"></i>
+         </a>
+         <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
+            <i class="fa fa-long-arrow-right" style="font-size:24px; padding-top: 4px;"></i>
+         </a>
+      </div>
+   </div>
+   <!-- banner section end -->
+   <!-- health section start -->
+   <div class="health_section layout_padding">
+      <div class="container">
+         <h1 class="health_taital">Best Of Health care for you</h1>
+         <p class="health_text">Наша платформа предоставляет современные инструменты для упрощения работы медицинских работников и повышения качества ухода за пациентами. Мы разработали систему, которая позволяет врачам и медсёстрам эффективно отслеживать состояние пациентов, своевременно принимать решения и улучшать координацию внутри команды.</p>
+         <div class="health_section layout_padding">
+            <div class="row">
+               <div class="col-sm-7">
+                  <div class="image_main">
+                     <div class="main">
+                        <img src="{%static "images/img-2.png"%}" alt="Avatar" class="image" style="width:100%">
+                     </div>
+                     <div class="middle">
+                        <div class="text"><img src="{%static 'images/icon-1.png'%}" style="width: 40px;"></div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-sm-5">
+                  <div class="image_main_1">
+                     <div class="main">
+                        <img src="{%static "images/img-3.png" %}" alt="Avatar" class="image" style="width:100%">
+                     </div>
+                     <div class="middle">
+                        <div class="text"><img src="{% static 'images/icon-1.png'%}" style="width: 40px;"></div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            {% comment %} <div class="getquote_bt_1"><a href="#">Read More <span><img src="{% static 'images/right-arrow.png'%}"></span></a></div> {% endcomment %}
+         </div>
+      </div>
+   </div>
+   <!-- health section end -->
+   <!-- knowledge section end -->
+   <div class="knowledge_section layout_padding">
+      <div class="container">
+         <div class="knowledge_main">
+            <div class="left_main">
+               <h1 class="knowledge_taital">Knowledge of center</h1>
+               </div>
+            <div class="right_main">
+               <div class="play_icon"><a href="https://youtu.be/rVHglvOfTew?list=RDrVHglvOfTew"><img src="{% static 'images/play-icon.png'%}"></a></div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- knowledge section end -->
+   <!-- news section start -->
+   <div class="news_section layout_padding">
+      <div class="container">
+         <h1 class="health_taital">Почему выбирают нас?</h1>
+         <p class="health_text"> Мы понимаем, что каждая секунда в медицинской практике важна. Наша платформа помогает сократить время на административные задачи и сосредоточиться на главном – здоровье и благополучии пациентов.
+            Попробуйте нашу платформу сегодня и убедитесь, как технологии могут сделать работу медицинского персонала проще и эффективнее!</p>
+         <div class="news_section_2 layout_padding">
+            <div class="row">
+               <div class="col-lg-4 col-sm-6">
+                  <div class="box_main">
+                     <div class="icon_1"><img src="{% static 'images/icon-2.png'%}"></div>
+                     <h4 class="daily_text">Ежедневная запись о пациентах</h4>
+                  </div>
+               </div>
+               <div class="col-lg-4 col-sm-6">
+                  <div class="box_main active">
+                     <div class="icon_1"><img src="{%static 'images/icon-3.png'%}"></div>
+                     <h4 class="daily_text_1">Мониторинг состояния пациента</h4>
+                  </div>
+               </div>
+               <div class="col-lg-4 col-sm-6">
+                  <div class="box_main">
+                     <div class="icon_1"><img src="{% static 'images/icon-4.png'%}"></div>
+                     <h4 class="daily_text_1">Лаконичный дизайн, который не отвлекает от главного – заботы о пациентах.</h4>
+                  </div>
+               </div>
+            </div>
+         </div>
+         {% comment %} <div class="getquote_bt"><a href="#">Get A Quote <span><img src="{%static 'images/right-arrow.png'%}"></span></a></div> {% endcomment %}
+      </div>
+   </div>
+   <!-- news section end -->
+   <!-- contact section start -->
+   {% comment %} <div class="contact_section layout_padding">
+      <div class="container">
+         <h1 class="contact_taital">What we do</h1>
+         <div class="news_section_2">
+            <div class="row">
+               <div class="col-md-6">
+                  <div class="icon_main">
+                     <div class="icon_7"><img src="{%static 'images/icon-7.png'%}"></div>
+                     <h4 class="diabetes_text">Diabetes and obesity Counselling </h4>
+                  </div>
+                  <div class="icon_main">
+                     <div class="icon_7"><img src="{%static 'images/icon-5.png' %}"></div>
+                     <h4 class="diabetes_text">Obstetrics and Gynsecology</h4>
+                  </div>
+                  <div class="icon_main">
+                     <div class="icon_7"><img src="{% static 'images/icon-6.png' %}"></div>
+                     <h4 class="diabetes_text">Surgical and medical Oncology</h4>
+                  </div>
+               </div>
+               <div class="col-md-6">
+                  <div class="contact_box">
+                     <h1 class="book_text">Book Appoinment</h1>
+                     <input type="text" class="Email_text" placeholder="Name" name="Name">
+                     <input type="text" class="Email_text" placeholder="Name" name="Name">
+                     <textarea class="massage-bt" placeholder="Massage" rows="5" id="comment" name="Massage"></textarea>
+                     <div class="send_bt"><a href="#">SEND</a></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div> {% endcomment %}
+   <!-- contact section end -->
+   <!-- client section start -->
+   {% comment %} <div class="client_section layout_padding">
+      <div id="my_slider" class="carousel slide" data-ride="carousel">
+         <div class="carousel-inner">
+            <div class="carousel-item active">
+               <div class="container">
+                  <h1 class="client_taital">What People Say</h1>
+                  <p class="client_text">It is a long established fact that a reader will be distracted </p>
+                  <div class="client_section_2">
+                     <div class="client_left">
+                        <div><img src="{%static 'images/client-img.png'%}" class="client_img"></div>
+                     </div>
+                     <div class="client_right">
+                        <h3 class="distracted_text">Distracted by</h3>
+                        <p class="lorem_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters</p>
+                        <div class="quote_icon"><img src="{%static 'images/quote-icon.png'%}"></div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="carousel-item">
+               <div class="container">
+                  <h1 class="client_taital">What People Say</h1>
+                  <p class="client_text">It is a long established fact that a reader will be distracted </p>
+                  <div class="client_section_2">
+                     <div class="client_left">
+                        <div><img src="{%static 'images/client-img.png'%}" class="client_img"></div>
+                     </div>
+                     <div class="client_right">
+                        <h3 class="distracted_text">Distracted by</h3>
+                        <p class="lorem_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters</p>
+                        <div class="quote_icon"><img src="{%static 'images/quote-icon.png'%}"></div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="carousel-item">
+               <div class="container">
+                  <h1 class="client_taital">What People Say</h1>
+                  <p class="client_text">It is a long established fact that a reader will be distracted </p>
+                  <div class="client_section_2">
+                     <div class="client_left">
+                        <div><img src="{%static 'images/client-img.png'%}" class="client_img"></div>
+                     </div>
+                     <div class="client_right">
+                        <h3 class="distracted_text">Distracted by</h3>
+                        <p class="lorem_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters</p>
+                        <div class="quote_icon"><img src="{%static 'images/quote-icon.png' %}"></div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+   
+         <a class="carousel-control-prev" href="#my_slider" role="button" data-slide="prev">
+            <i class="fa fa-long-arrow-left" style="font-size:24px; padding-top: 4px;"></i>
+         </a>
+         <a class="carousel-control-next" href="#my_slider" role="button" data-slide="next">
+            <i class="fa fa-long-arrow-right" style="font-size:24px; padding-top: 4px;"></i>
+         </a>
+      </div>
+   </div> {% endcomment %}
+  
+{%endblock%}
+{% block footer %}
+   <!-- client section end -->
+   <!-- footer section start -->
+   <div class="footer_section layout_padding">
+      <div class="container">
+         <div class="row">
+            <div class="col-lg-3 col-sm-6">
+               <div class="footer_logo"><a href="#"><img src="{%static 'images/footer-logo.png'%}"></a></div>
+               <h1 class="adderss_text">Contact Us</h1>
+               <div class="map_icon"><img src="{%static 'images/map-icon.png'%}"><span class="paddlin_left_0">Almaty</span></div>
+               <div class="map_icon"><img src="{%static 'images/call-icon.png'%}"><span class="paddlin_left_0">+7586656566</span></div>
+               <div class="map_icon"><img src="{%static 'images/mail-icon.png'%}"><span class="paddlin_left_0">sultanaevaakbota@gmail.com</span></div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+               <h1 class="adderss_text">Doctors</h1>
+               <div class="hiphop_text_1">"Doctors" – это раздел, посвящённый нашим уважаемым медицинским специалистам. Наша платформа создана для того, чтобы предоставить врачам удобные инструменты для управления информацией о пациентах, улучшения качества лечения и повышения эффективности работы. Мы понимаем, что каждый день врачей – это огромная ответственность, и наша цель – облегчить их работу, предоставив современные технологии для медицины.</div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+               <h1 class="adderss_text">Useful Links</h1>
+               <div class="Useful_text">В этом разделе вы найдёте полезные ссылки, которые помогут вам быстро перейти к важной информации. Мы собрали всё, что может пригодиться врачам, медсёстрам и пациентам: инструкции, справочники, образовательные ресурсы и многое другое. Всё самое нужное – всегда под рукой для вашей удобной и продуктивной работы.</div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+               <h1 class="adderss_text">Newsletter</h1>
+               <input type="text" class="Enter_text" placeholder="Enter your Emil" name="Enter your Emil">
+               <div class="subscribe_bt"><a href="#">Subscribe</a></div>
+               <div class="social_icon">
+                  <ul>
+                     <li><a href="#"><img src="{%static 'images/fb-icon.png'%}"></a></li>
+                     <li><a href="#"><img src="{%static 'images/twitter-icon.png'%}"></a></li>
+                     <li><a href="#"><img src="{% static 'images/linkedin-icon.png'%}"></a></li>
+                     <li><a href="#"><img src="{%static 'images/instagram-icon.png'%}"></a></li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   {%endblock%}
+   <!-- footer section end -->
+   <!-- copyright section start -->
+
+ 
+   <!-- copyright section end -->
+   <!-- Javascript files-->
+   <script src="{%static 'js/jquery.min.js'%}"></script>
+   <script src="{%static 'js/popper.min.js'%}"></script>
+   <script src="{%static 'js/bootstrap.bundle.min.js' %}"></script>
+   <script src="{%static 'js/jquery-3.0.0.min.js'%}"></script>
+   <script src="{%static 'js/plugin.js'%}"></script>
+   <!-- sidebar -->
+   <script src="{%static 'js/jquery.mCustomScrollbar.concat.min.js'%}"></script>
+   <script src="{%static 'js/custom.js'%}"></script>
+   <!-- javascript -->
+   <script src="{%static 'js/owl.carousel.js'%}"></script>
+   <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+</body>
+
+</html>
